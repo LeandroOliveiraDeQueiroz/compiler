@@ -188,6 +188,20 @@ class AnalisadorLexico {
         this.registrosLexicos = new ArrayList<RegistroLexico>();
     }
 
+    public void checarCaracterValido(char caractere, int contadorLinha) throws Exception {
+
+        char [] simbolosValidos = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 
+        'A', 'B', 'C', 'D', 'E', 'F', 'G','H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+        'a', 'b', 'c', 'd', 'e', 'f', 'g','h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+        ':','<','>','.',',',';','(',')','[',']','{','}','+','-','%','=','*', '/',
+        '\n', '\t', '\r','_', '\'', '"',' ',
+    };
+        if(!(new String(simbolosValidos).contains(caractere + ""))){
+            throw new Exception(contadorLinha + "\ncaractere invalido." + caractere);
+        }
+
+    }
+
     public RegistroLexico lerString() throws Exception {
         int numEstadoAtual = 0;
         boolean devolve = false;
@@ -204,10 +218,9 @@ class AnalisadorLexico {
             
             char caractere = strEntrada.charAt(0);
 
-            if((int)caractere > 127){
-                throw new Exception(contadorLinha + "\ncaractere invalido.");
-            }
 
+            checarCaracterValido(caractere, contadorLinha);
+            
             switch(numEstadoAtual){
                 case 0:
                     switch(caractere){
