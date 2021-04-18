@@ -22,8 +22,8 @@ public class Compilador {
           // Na próxima chamada queremos voltar ao mesmo ponto do programa principal
           // scanner.useDelimiter(""); scanner.hasNext(); scanner.next(); - Ler um char, porem nao le /n eu acho 
 
-            // File Teste = new File("1.txt");
-            //   AnalisadorLexico analisadorLexico = new AnalisadorLexico(Teste);
+            // File Teste = new File("./Drive/exemplo015.l");
+            // AnalisadorLexico analisadorLexico = new AnalisadorLexico(Teste);
 
           AnalisadorLexico analisadorLexico = new AnalisadorLexico(System.in);
           AnalisadorSintatico analisadorSintatico = new AnalisadorSintatico(analisadorLexico);
@@ -181,6 +181,13 @@ class AnalisadorLexico {
     private String strEntrada = "";
     private Scanner scanner;
 
+    char [] simbolosValidos = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 
+        'A', 'B', 'C', 'D', 'E', 'F', 'G','H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+        'a', 'b', 'c', 'd', 'e', 'f', 'g','h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+        ':','<','>','.',',',';','(',')','[',']','{','}','+','-','%','=','*', '/',
+        '\n', '\t', '\r','_', '\'', '"',' ', '?', '$',
+    };
+
     // public AnalisadorLexico(File strFonte) throws Exception{
     public AnalisadorLexico(InputStream strFonte) throws Exception{
         this.scanner = new Scanner(strFonte);
@@ -189,17 +196,9 @@ class AnalisadorLexico {
     }
 
     public void checarCaracterValido(char caractere, int contadorLinha) throws Exception {
-
-        char [] simbolosValidos = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 
-        'A', 'B', 'C', 'D', 'E', 'F', 'G','H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-        'a', 'b', 'c', 'd', 'e', 'f', 'g','h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-        ':','<','>','.',',',';','(',')','[',']','{','}','+','-','%','=','*', '/',
-        '\n', '\t', '\r','_', '\'', '"',' ',
-    };
         if(!(new String(simbolosValidos).contains(caractere + ""))){
-            throw new Exception(contadorLinha + "\ncaractere invalido." + caractere);
+            throw new Exception(contadorLinha + "\ncaractere invalido.");
         }
-
     }
 
     public RegistroLexico lerString() throws Exception {
@@ -348,7 +347,7 @@ class AnalisadorLexico {
                             numEstadoAtual = 2;
                             break;
                         default:
-                            throw new Exception(contadorLinha + "\nlexema nao identificado [" + strResultado + "].");
+                            throw new Exception(contadorLinha + "\nlexema nao identificado [" + strResultado + caractere + "].");
                     } // END switch(caractere)
                     break;
                 case 1:
