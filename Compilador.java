@@ -246,7 +246,7 @@ class AnalisadorLexico {
                         case '>':
                             numEstadoAtual = 4;
                             break;
-                        case '.':
+                        // case '.':
                         case ',':
                         case ';':
                         case '(':
@@ -741,9 +741,7 @@ class AnalisadorLexico {
                             numEstadoAtual = numEstadoFinal;
                             break;
                         default:
-                            numEstadoAtual = numEstadoFinal; // DEVOLVE
-                            devolve = true;
-                            break;
+                            throw new Exception(contadorLinha + "\nlexema nao identificado [" + strResultado + "].");
                     } // END switch(caractere)
                     break;
             }  // END switch(numEstadoAtual)
@@ -918,6 +916,7 @@ class AnalisadorSintatico {
                 casaToken("]");
             }
             casaToken(")");
+            casaToken(";");
         }  else if(this.registroLido.getToken().equals("write")){
             casaToken("write");
             ExpEscrita();
